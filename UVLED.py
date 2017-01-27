@@ -22,6 +22,7 @@ class UVLED:
         self.points = None
 
         self.write("echo off")
+	self.write("count 0")
         self.setTrig("xt")
         #self.setTrig("DC")
         
