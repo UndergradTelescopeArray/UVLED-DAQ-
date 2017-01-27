@@ -1,7 +1,7 @@
 #!/bin/bash
 trap "exit" INT
 i=0
-for j in {5000..120000..5000}
+for j in {5000..75000..2500}
 do
 	array[$i]=$j
 	i=$i+1
