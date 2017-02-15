@@ -1,0 +1,8 @@
+The purpose of the data files saved here is to record current/time measurements for the UVLED + Photodiode measurement setup. Each file contains a header, where the most relevent information is stored. This header contains:
+	* Parameters passed to the UVLED - (UVLED Amplitude = "ampl" or current pulse amplitude in mA, UVLED Width = "width" or pulse width in microseconds)
+	* Information received from the UVLED - (UVLED ID = "ID" or the unique id associated with the unit used, UVLED Amplitude Readback = "amprb" or the actual current pulse amplitude measured by the LED, and the temperatures measured by the UVLED using "temp")
+	* The frequency value passed to the pulse generator which triggers the LED externally (Pulse Frequency)
+	* The measured distance between the LED diffuser and the photodiode precision aperture, incorrectly spelled as Seperation - this is passed as a parameter to the measurement software, and is measured by hand, using calipers.
+	* The average current and standard deviation of that current obtained from the picoammeter (Average Current and Current StD respectively)
+
+These last two values (Current Avg, Current StD) are calculated from the set of current/time points which makes up the end of the data file. This "footer" contains all of the raw data provided by the picoammeter.

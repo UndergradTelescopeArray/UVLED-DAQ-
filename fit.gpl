@@ -1,0 +1,9 @@
+reset;
+set datafile separator ",";
+f(x,A,V) = (a*V+b)*(1-exp(-A/c))/((x-d)**2);
+a=.1;
+b=1000;
+c=100;
+d=.05;
+set dummy x, A, V;
+fit f(x,A,V) 'dataset.csv' using 6:5:7:8:(1.0) via a, b, c, d;
