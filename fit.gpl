@@ -1,9 +1,13 @@
 reset;
 set datafile separator ",";
 f(x,A,V) = (a*V+b)*(1-exp(-A/c))/((x-d)**2);
-a=.1;
+a=.001;
 b=1000;
 c=100;
 d=.05;
 set dummy x, A, V;
-fit f(x,A,V) 'dataset.csv' using 6:5:7:8:(1.0) via a, b, c, d;
+fit f(x,A,V) 'dataset.csv' using 6:5:7:10:11 via a, b, c, d;
+
+set terminal postscript;
+set output "plot.pdf";
+plot [.15:1] f(x,120,40000), 'dataset.csv' using 6:10 pt 1 ps 1;
