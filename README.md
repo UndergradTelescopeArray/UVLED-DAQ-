@@ -8,3 +8,6 @@ sudo python measure_test.py BASENAME -a CURRENTAMPLITUDE -f FREQUENCY -r MEASURE
 Note that there are more possible parameters, accessed with the -h or --help params
 
 The UVLEDDataCompile jar allows the user to select any number of .csv files (such as those created by measure_test) and, if they are formatted correctly, creates a single .csv file summarizing each of the chosen data files.
+
+Need to use tr '\r' '\n' < dataset.csv > dataset.csv
+to translate mac/windows created .csv's to Unix
