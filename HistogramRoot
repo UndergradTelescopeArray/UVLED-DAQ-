@@ -1,0 +1,59 @@
+#include <fstream>
+
+TGraph *gr1 = new TGraph ("Fit", "(-0.00195191*V+706.719)*(1-exp(-A/151.932))/((x--0.0200057)^{2})");
+TCanvas *c1 = new TCanvas("c1", "Graph Draw Options", 200, 10, 600, 400);
+TH1D * hlf = new TH1D("hlf","my first hist");
+Double x,y, y_err, f,a;
+String temp; 
+Int nlines = 0;
+TFile *f = new TFile("my_script.root", "RECREATE");
+DNtuple *ntuple = new DNtuple("ntuple", "data", "x:y:f:a");
+
+void create_histogram(void) {
+
+TString dir = gSystem->UnixPathName(gInterpreter->GetCurrentMacroName());
+dir.ReplaceAll("Histogram.C", "");
+dir.ReplaceAll("/./", "/");
+ifstream in;
+in.open(Form("%sconvertcsv.txt", dir.Data()));
+auto f = TFile::Open("basic.root","RECREATE");
+
+//dataset[0] filename
+//dataset[1] UVLED ID
+//dataset[2] Average Current(A)
+//dataset[3] Current Standard Deviation (A)
+//dataset[4] UVLED Current Amplitude (mA)
+//dataset[5] UVLED Displacement (m)
+//dataset[6] UVLED Frequency (Hz)
+//dataset[7] current
+//dataset[8] current S.D.
+//dataset[9] flux
+//dataset[10] flux error
+
+
+	while (1){
+		in >> temp >> temp >> temp >> temp >> a >> x >> f >> temp >> temp >> y >> y_err;
+		if (!in.good()) break;
+		if (nlines < 5) printf("x=%8d, y=%8d, f=%8d, a=%8d", x, y, f, a);
+		hlf->Fill(x);
+		ntuple->Fill(x,y, y_err, f, a);
+		nLines++;
+	}
+		in.close();
+		f->Write();
+		hlf ->Fit("gr1");
+
+		gr1 -> Draw();
+		hlf -> Draw();
+	}
+
+
+
+/*
+TH1F* h = new TH1F("h1","Distribution",100,0,1);
+void my_script(void) {
+	for(int i=0; i<1000; ++i) h->Fill( gRandom->Rndm());
+	h->Fill(i);
+	h->Draw();
+}
+*/
